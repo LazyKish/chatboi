@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Welcome, {{ user.username }}</h1>
+    <h2>Your Messages:</h2>
+    <ul>
+        {% for message in messages %}
+        <li><strong>From:</strong> {{ message.sender.username }} - {{ message.content }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

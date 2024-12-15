@@ -53,7 +53,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'chat.middleware.EncryptionMiddleware',  # Use the correct app name and module path
 ]
+
+
+
 
 ROOT_URLCONF = 'PyChat.urls'
 
