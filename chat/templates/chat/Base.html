@@ -1,35 +1,36 @@
-{% load static %}
+{% load static %}  <!-- Add this line at the very top -->
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="{% static 'css/base_style.css' %}">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<!--    <script type="text/javascript" src="{% static 'js/chat.js' %}"></script>-->
     <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/chat.css' %}">
-    {% block head %}{% endblock %}
-
-    <title>{% block title %}{% endblock %}</title>
+    <title>PyChat</title>
 </head>
 <body>
     <div class="sidenav">
         <div class="row">
-            <a href="/"><div class="col"><h2 style="padding-left: 16px; display: block-content;">PyChat</h2></div></a>
-        <div class="col"><div class="dropdown">
-            <button onclick="myFunction()" class="btn btn-success">Menu</button>
-            <div id="myDropdown" class="dropdown-content">
-                <a href="/search">Search</a>
-                <a href="/logout">Logout</a>
-              </div>
-        </div>
-        </div>
+            <a href="/"><div class="col"><h2 style="padding-left: 16px;">PyChat</h2></div></a>
+            <div class="col">
+                <div class="dropdown">
+                    <button onclick="myFunction()" class="btn btn-success">Menu</button>
+                    <div id="myDropdown" class="dropdown-content">
+                        <a href="/search">Search</a>
+                        <form action="/logout/" method="POST" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-link" style="padding: 0; border: none; background: none; color: inherit; cursor: pointer;">Logout</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
         <hr class="mt-0 mb-4">
-        <div class="friends" style="y-overflow: auto">
+        <div class="friends" style="overflow-y: auto">
             <ul class="list-group">
                 {% for friend in friends %}
                     <a href="/chat/{{friend.username}}">
@@ -39,7 +40,7 @@
                                     <img src="{% static 'images/user_image.jpg' %}" style="width: 50px; height: 50px;">
                                 </div>
                                 <div class="col">
-                                    <div class="row" style="font-color: #000"><p>{{friend.name}}</p></div>
+                                    <div class="row"><p>{{friend.name}}</p></div>
                                 </div>
                             </div>
                         </li>
@@ -47,30 +48,35 @@
                 {% endfor %}
             </ul>
         </div>
-
     </div>
 
     <div class="main">
         {% block content %}
         <div style="margin-top: 40vh; text-align: center">
             <h2>Select a chat & start messaging!</h2>
-        </div>
         {% endblock %}
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            crossorigin="anonymous"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
     <script>
         function myFunction() {
             document.getElementById("myDropdown").classList.toggle("show");
         }
-    </script>
 
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.btn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
 </body>
 </html>
