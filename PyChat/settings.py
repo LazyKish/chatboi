@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'registration.apps.RegistrationConfig',
     'rest_framework',
     'widget_tweaks',
+    
 ]
 
 MIDDLEWARE = [
@@ -52,7 +53,12 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+<<<<<<< HEAD
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # Use the correct app name and module path
+=======
     'django.middleware.clickjacking.XFrameOptionsMiddleware',# Use the correct app name and module path
+>>>>>>> 9057a55d26a3a41df66133e6d870948bd0cfb98c
 ]
 
 
