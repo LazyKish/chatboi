@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'registration.apps.RegistrationConfig',
     'rest_framework',
     'widget_tweaks',
+    
 ]
 
 MIDDLEWARE = [
