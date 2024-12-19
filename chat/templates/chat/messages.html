@@ -4,7 +4,7 @@
 {% block message %}
 {% for message in messages %}
     {% if curr_user == message.sender_name %}
-        <div class="container darker">
+        <div class="container" style="background-color: aliceblue;">
             <img src="{% static 'images/user_image.jpg' %}" alt="Avatar" class="right" style="width:100%;">
             <p>{{message.description}}</p>
             <span class="time-right">{{message.time}}</span>
@@ -21,7 +21,7 @@
 function scrolltoend() {
     $('#board').stop().animate({
         scrollTop: $('#board')[0].scrollHeight
-    }, 800);
+    }, 800);    
 }
 
 $(function () {
